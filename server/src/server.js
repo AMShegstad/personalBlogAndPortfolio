@@ -2,7 +2,7 @@ import express from 'express';
 import { connectDB } from './config/dbConnection.js';
 import dotenv from 'dotenv';
 
-import apiRoutes from './routes/api/index.js';
+//import { apiRoutes } from './routes/api/index.js';
 import path from 'path';
 
 dotenv.config();
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // api routes
-app.use('/api', apiRoutes);
+//app.use('/api', apiRoutes);
 
 // Serve static files from the React app
 const __dirname = path.resolve(); // Get the current directory
@@ -30,13 +30,11 @@ app.get('*', (req, res) => {
 });
 
 // Connect to the database and start the server
-app.listen(PORT, () => {
-    connectDB()
-        .then(() => {
-            console.log(`Server is running on port ${PORT}`.green.bold);
-        })
-        .catch((error) => {
-            console.error(`Error connecting to the database: ${error.message}`.red);
-            process.exit(1); // Exit the process with failure
-        });
-});
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`Server started at http://localhost:${PORT}`);
+  });
+};
+
+startServer();
