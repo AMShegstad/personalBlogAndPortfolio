@@ -1,0 +1,3 @@
+/*
+Methods for managing user data in the application.
+*/
