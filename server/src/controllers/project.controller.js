@@ -60,6 +60,7 @@ export const createProject = async (req, res) => {
 
         const savedProject = await newProject.save();
         console.log('Project created successfully');
+        res.status(201).json({success: true, data:savedProject});
     } catch (error) {
         console.error('Error creating project: ', error);
         res.status(500).json({success: false, message: 'Error creating project', error: error.message});
@@ -74,9 +75,14 @@ export const updateProject = async (req, res) => {
     const { name, description, stack, imageURL, githubLink, liveLink } = req.body;
     try {
         const updatedProject = await Project.findByIdAndUpdate(
-            projectId,
-            { name, description, stack, imageURL, githubLink, liveLink },
-            { new: true }
+            projectId, { 
+                name, 
+                description, 
+                stack, 
+                imageURL, 
+                githubLink, 
+                liveLink 
+            }, { new: true }
         );
         if (!updatedProject) {
             return res.status(404).json({success: false, message: 'Project not found'});
