@@ -1,9 +1,9 @@
 import express from 'express';
 import { connectDB } from './config/dbConnection.js';
 import dotenv from 'dotenv';
-import { logMethod } from './middleware/logMethod.middleware.js';
+import logMethod from './middleware/logMethod.middleware.js';
 
-//import { apiRoutes } from './routes/api/index.js';
+import { apiRoutes } from './routes/api/index.js';
 import path from 'path';
 
 dotenv.config();
@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: true}));
 app.use('/', logMethod); // Log method middleware
 
 // api routes
-//app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 
 // Serve static files from the React app
 const __dirname = path.resolve(); // Get the current directory

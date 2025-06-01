@@ -55,3 +55,12 @@ const projectSchema = new Schema({
         default: 0
     }
 })
+
+userSchema.pre('findOneAndUpdate', function (next) {
+    this.set({ updatedAt: Date.now() }); // Update the updatedAt field on findOneAndUpdate
+    next();
+});
+
+const Project = model('Project', projectSchema);
+
+export default Project;

@@ -54,3 +54,12 @@ const postSchema = new Schema({
         default: Date.now
     },
 });
+
+userSchema.pre('findOneAndUpdate', function (next) {
+    this.set({ updatedAt: Date.now() }); // Update the updatedAt field on findOneAndUpdate
+    next();
+});
+
+const Post = model('Post', postSchema);
+
+export default Post;
