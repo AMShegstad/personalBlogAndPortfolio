@@ -25,8 +25,8 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   },
   createdAt: {
     type: Date,
@@ -36,14 +36,15 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now, // Automatically set the update date
   },
-  adminStatus: {
+  adminStatus: { 
     type: Boolean,
-    default: true,
+    default: false,
     required: true
   },
   comments: [{
     type: Schema.Types.ObjectId,
-    ref: 'Comment' // Reference to the Comment model
+    ref: 'Comment', // Reference to the Comment model
+    default: [] // Default to an empty array if no comments exist
   }],
   visits: {
     type: Number,

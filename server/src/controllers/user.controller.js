@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find([]);
+        const users = await User.find({}) || [];
         console.log('Users fetched successfully');
         res.status(200).json({success: true, data: users});
     } catch (error) {
@@ -27,6 +27,8 @@ export const getUserById = async (req, res) => {
         if (!user) {
             return res.status(404).json({success: false, message: 'User not found'});
         }
+        console.log('User fetched successfully');
+        res.status(200).json({success: true, data: user});
     } catch (error) {
         console.error('Error fetching user by ID: ', error);
         res.status(500).json({success: false, message: 'Error fetching userby ID', error: error.message});
@@ -39,24 +41,36 @@ export const createUser = async (req, res) => {
         return res.status(400).json({ success: false, errors: errors.array() });
     }
 
-    const { email, username, password, name, adminStatus, comments, visits} = req.body;
     try {
-        const newUser = new User ({
-            email,
-            username,
-            password,
-            name,
-            adminStatus,
-            comments,
-            visits
-        })
-
+        const { email, password, username, name, adminStatus } = req.body;
+        const newUser = new User({ email, password, username, name, adminStatus });
         const savedUser = await newUser.save();
-        console.log('Project created successfully');
-        res.status(201).json({success: true, data: savedUser});
+        console.log('User created successfully');
+        res.status(201).json({ success: true, data: savedUser });
     } catch (error) {
+        // Handle duplicate key error (e.g., unique email/username)
+        if (error.code === 11000) {
+            return res.status(400).json({
+                success: false,
+                message: 'Duplicate field value',
+                error: error.keyValue
+            });
+        }
+        // Handle Mongoose validation errors
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                success: false,
+                message: 'Validation error',
+                errors: Object.values(error.errors).map(e => ({
+                    msg: e.message,
+                    param: e.path,
+                    value: e.value
+                }))
+            });
+        }
+        // Other errors
         console.error('Error creating user: ', error);
-        res.status(500).json({success: false, message: 'Error creating user', error: error.message});
+        res.status(500).json({ success: false, message: 'Error creating user', error: error.message });
     }
 }
 
