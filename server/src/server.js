@@ -1,6 +1,7 @@
 import express from 'express';
 import { connectDB } from './config/dbConnection.js';
 import dotenv from 'dotenv';
+import { logMethod } from './middleware/logMethod.middleware.js';
 
 //import { apiRoutes } from './routes/api/index.js';
 import path from 'path';
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware to parse JSON requests
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use('/', logMethod); // Log method middleware
 
 // api routes
 //app.use('/api', apiRoutes);

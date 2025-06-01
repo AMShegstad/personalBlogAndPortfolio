@@ -10,9 +10,6 @@ removeProject: deletes a project from the database by its ID.
 
 import Project from '../models/project.model.js';
 import { validationResult } from 'express-validator';
-
-//import { request, response} from 'express';
-import Project from '../models/project.model.js';
 import mongoose from 'mongoose';
 
 export const getAllProjects = async (req, res) => {
