@@ -92,7 +92,7 @@ export const updateProject = async (req, res) => {
     }
 }
 
-export const removeProject = async (req, res) => {
+export const deleteProject = async (req, res) => {
     const projectId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(projectId)) {
         return res.status(400).json({success: false, message: 'Invalid project ID'});

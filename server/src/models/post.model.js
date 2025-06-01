@@ -55,7 +55,7 @@ const postSchema = new Schema({
     },
 });
 
-userSchema.pre('findOneAndUpdate', function (next) {
+postSchema.pre('findOneAndUpdate', function (next) {
     this.set({ updatedAt: Date.now() }); // Update the updatedAt field on findOneAndUpdate
     next();
 });

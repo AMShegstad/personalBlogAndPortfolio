@@ -97,7 +97,7 @@ export const createComment = async (req, res) => {
     }
 }
 
-export const updatedComment = async (req, res) => {
+export const updateComment = async (req, res) => {
     const commentId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(commentId)) {
         return res.status(400).json({success: false, message: 'Invalid comment ID'});
@@ -124,7 +124,7 @@ export const updatedComment = async (req, res) => {
     }
 }
 
-export const removeComment = async (req, res) => {
+export const deleteComment = async (req, res) => {
     const commentId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(commentId)) {
         return res.status(400).json({success: false, message: 'Invalid comment ID'});

@@ -3,12 +3,12 @@ This mofule defines the Comment model for the application.
 It includes fields for the comment's content, author, associated post, and timestamps for creation and updates.
 */
 
-import { SchemaMetaFieldDef } from 'graphql';
-import {schema, model} from 'mongoose';
+//import { SchemaMetaFieldDef } from 'graphql';
+import { Schema, model} from 'mongoose';
 
-const commentSchema = new schema({
+const commentSchema = new Schema({
     content: {
-        type: stringifyForDisplay,
+        type: String,
         required: true,
         trim: true,
         maxlength: 500 // Limit the comment length to 500 characters,
@@ -34,7 +34,7 @@ const commentSchema = new schema({
     }
 });
 
-userSchema.pre('findOneAndUpdate', function (next) {
+commentSchema.pre('findOneAndUpdate', function (next) {
     this.set({ updatedAt: Date.now() }); // Update the updatedAt field on findOneAndUpdate
     next();
 });

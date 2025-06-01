@@ -3,7 +3,7 @@ import { connectDB } from './config/dbConnection.js';
 import dotenv from 'dotenv';
 import logMethod from './middleware/logMethod.middleware.js';
 
-import { apiRoutes } from './routes/api/index.js';
+import apiRoutes from './routes/api/index.js';
 import path from 'path';
 
 dotenv.config();

@@ -2,6 +2,8 @@
 The following code defines a Mongoose schema and model for a portfolio project.
 It includes fields for the project name, description, image URL, GitHub link, live demo link, and timestamps for creation and updates.
 */
+import { Schema, model } from 'mongoose';
+
 const projectSchema = new Schema({
     name: {
         type: String,
@@ -56,7 +58,7 @@ const projectSchema = new Schema({
     }
 })
 
-userSchema.pre('findOneAndUpdate', function (next) {
+projectSchema.pre('findOneAndUpdate', function (next) {
     this.set({ updatedAt: Date.now() }); // Update the updatedAt field on findOneAndUpdate
     next();
 });

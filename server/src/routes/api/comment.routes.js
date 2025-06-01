@@ -8,7 +8,7 @@ import {
     getAllCommentsForUser, 
     getCommentById, 
     createComment, 
-    updatecomment, 
+    updateComment, 
     deleteComment 
 } from '../../controllers/comment.controller.js';
 
