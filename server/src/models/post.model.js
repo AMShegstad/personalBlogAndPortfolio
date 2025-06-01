@@ -31,7 +31,6 @@ const postSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User', // Reference to the User model
-        required: true
     },
     comments: [{
         type: Schema.Types.ObjectId,
