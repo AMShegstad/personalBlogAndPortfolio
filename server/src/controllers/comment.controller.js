@@ -13,7 +13,35 @@ import Comment from '../models/comment.model.js';
 import { validationResult } from 'express-validator';
 import mongoose from 'mongoose';
 
-export const getAllCommentsforPost = async (req, res) => {
+export const getAllComments = async (req, res) => {
+    try {
+        const comments = await Comment.find({});
+        console.log('Comments fetched successfully');
+    } catch (error) {
+        console.error('Error fetching comments: ', error);
+        res.status(500).json({success: false, message: 'Error fetching comments', error: error.message});
+    }
+}
+
+export const getAllCommentsForUser = async (req, res) => {
+    const userId = req.params.userId;
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({success: false, message: 'Invalid user ID'});
+    }
+    try {
+        const comments = await Comment.find({ author: userId }).populate('username', 'createdAt');
+        if (comments.length === 0) {
+            return res.status(404).json({success: false, message: 'No comments found for this user'});
+        }
+        console.log('Comments fetched successfully for user');
+        res.status(200).json({success: true, data: comments});
+    } catch (error) {
+        console.error('Error fetching comments for user: ', error);
+        res.status(500).json({success: false, message: 'Error fetching comments for user', error: error.message});
+    }
+}
+
+export const getAllCommentsForPost = async (req, res) => {
     const postId = req.params.postId;
     if (!mongoose.Types.ObjectId.isValid(postId)) {
         return res.status(400).json({success: false, message: 'Invalid post ID'});
