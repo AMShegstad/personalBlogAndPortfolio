@@ -33,6 +33,7 @@ export const getProjectById = async (req, res) => {
         if (!project) {
             return res.status(404).json({success: false, message: 'Project not found'});
         }
+        console.log('Project fetched successfully');
     } catch (error) {
         console.error('Error fetching project by ID: ', error);
         res.status(500).json({success: false, message: 'Error fetching project by ID', error: error.message});

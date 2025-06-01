@@ -21,6 +21,10 @@ afterAll(async() => {
     await mongoServer.stop();
 });
 
+afterEach(async () => {
+    await User.deleteMany({});
+})
+
 describe('User API Tests', () => {
     // Return an empty array when no users exist
     it('should return an empty array when no users exist', async () => {
