@@ -79,13 +79,13 @@ describe('Comment API Tests', () => {
             author: testUser._id,
             associatedPost: testPost._id,
         };
-        await Comment.create(newComment);
+        savedComment = await Comment.create(newComment);
         const res = await request(app).get('/api/comments');
         expect(res.statusCode).toBe(200);
         expect(res.body.success).toBe(true);
         expect(Array.isArray(res.body.data)).toBe(true);
         expect(res.body.data.length).toBe(1);
-        expect(res.body.data[0].content).toBe(newComment.content);
+        expect(res.body.data[0].content).toBe(savedComment.content);
     });
 
     // Testing getAllCommentsForUser
@@ -97,6 +97,12 @@ describe('Comment API Tests', () => {
     });
 
     it('should return an empty array when no comments exist for a user', async () => {
+        const newComment = {
+            content: 'This is a test comment.',
+            author: testUser._id,
+            associatedPost: testPost._id,
+        };
+        const savedComment = await Comment.create(newComment); // <-- add const
         const validUserId = testUser._id; // Use the test user ID
         const res = await request(app).get(`/api/comments/user/${validUserId}`);
         expect(res.statusCode).toBe(200);
@@ -223,4 +229,19 @@ describe('Comment API Tests', () => {
         expect(res.statusCode).toBe(404);
         expect(res.body.success).toBe(false);
     });
+
+    // it('should return a 200 status when fetching all comments', async () => {
+//     const newComment = {
+//         content: 'This is a test comment.',
+//         author: testUser._id,
+//         associatedPost: testPost._id,
+//     };
+//     const savedComment = await Comment.create(newComment); // <-- add const
+//     const res = await request(app).get('/api/comments');
+//     expect(res.statusCode).toBe(200);
+//     expect(res.body.success).toBe(true);
+//     expect(Array.isArray(res.body.data)).toBe(true);
+//     expect(res.body.data.length).toBe(1);
+//     expect(res.body.data[0].content).toBe(savedComment.content);
+// });
 })

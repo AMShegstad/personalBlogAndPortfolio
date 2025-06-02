@@ -15,51 +15,40 @@ import mongoose from 'mongoose';
 
 export const getAllComments = async (req, res) => {
     try {
-        if (!mongoose.Types.ObjectId.isValid(req.params.userId)) {
-            return res.status(400).json({success: false, message: 'Invalid user ID'});
-        }
         const comments = await Comment.find({});
-        console.log('Comments fetched successfully');
-        res.status(200).json({success: true, data: comments});
+        res.status(200).json({ success: true, data: comments });
     } catch (error) {
         console.error('Error fetching comments: ', error);
-        res.status(500).json({success: false, message: 'Error fetching comments', error: error.message});
+        res.status(500).json({ success: false, message: 'Error fetching comments', error: error.message });
     }
 }
 
 export const getAllCommentsForUser = async (req, res) => {
     const userId = req.params.userId;
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-        return res.status(400).json({success: false, message: 'Invalid user ID'});
+        return res.status(400).json({ success: false, message: 'Invalid user ID' });
     }
     try {
-        const comments = await Comment.find({ author: userId }).populate('username', 'createdAt');
-        if (comments.length === 0) {
-            return res.status(404).json({success: false, message: 'No comments found for this user'});
-        }
-        console.log('Comments fetched successfully for user');
-        res.status(200).json({success: true, data: comments});
+        const comments = await Comment.findAll({ author: userId });
+        // Always return 200 and an array, even if empty
+        return res.status(200).json({ success: true, data: comments });
     } catch (error) {
         console.error('Error fetching comments for user: ', error);
-        res.status(500).json({success: false, message: 'Error fetching comments for user', error: error.message});
+        res.status(500).json({ success: false, message: 'Error fetching comments for user', error: error.message });
     }
 }
 
 export const getAllCommentsForPost = async (req, res) => {
     const postId = req.params.postId;
     if (!mongoose.Types.ObjectId.isValid(postId)) {
-        return res.status(400).json({success: false, message: 'Invalid post ID'});
+        return res.status(400).json({ success: false, message: 'Invalid post ID' });
     }
     try {
-        const comments = await Comment.find({ associatedPost: postId }).populate('username', 'createdAt');
-        if (comments.length === 0) {
-            return res.status(404).json({success: false, message: 'No comments found for this post'});
-        }
-        console.log('Comments fetched successfully');
-        res.status(200).json({success: true, data: comments});
+        const comments = await Comment.find({ associatedPost: postId });
+        res.status(200).json({ success: true, data: comments });
     } catch (error) {
         console.error('Error fetching comment for post: ', error);
-        res.status(500).json({success: false, message: 'Error fetching comments for post', error: error.message});
+        res.status(500).json({ success: false, message: 'Error fetching comments for post', error: error.message });
     }
 }
 
@@ -69,7 +58,11 @@ export const getCommentById = async (req, res) => {
         return res.status(400).json({success: false, message: 'Invalid comment ID'});
     }
     try {
-        const comment = await Comment.findById(commentId).populate('username', 'createdAt');
+        const comment = await Comment.findById(commentId).populate('author', 'username createdAt');
+        if (!comment) {
+            return res.status(404).json({success: false, message: 'Comment not found'});
+        }
+        res.status(200).json({success: true, data: comment});
     } catch (error) {
         console.error('Error fetching comment by ID: ', error);
         res.status(500).json({success: false, message: 'Error fetching comment by ID', error: error.message});
@@ -86,7 +79,7 @@ export const createComment = async (req, res) => {
     try {
         const newComment = new Comment({
             content,
-            authoer,
+            author,
             associatedPost,
             createdAt,
             updatedAt
@@ -145,3 +138,14 @@ export const deleteComment = async (req, res) => {
         res.status(500).json({success: false, message: 'Error deleting comment', error: error.message});
     }
 }
+
+// function isTokenExpired(token) {
+//   try {
+//     const decoded = jwtDecode(token);
+//     if (!decoded.exp) return false;
+//     return decoded.exp < Date.now() / 1000;
+//   } catch (err) {
+//     return false; // <--- Make sure this is false, not true
+//   }
+// }
+

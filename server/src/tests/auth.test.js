@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+
 import AuthService from '../../../client/src/utils/auth.js'; // Adjust the import path as necessary
 import { jwtDecode } from 'jwt-decode';
 import { vi } from 'vitest';
@@ -73,7 +75,7 @@ describe('AuthService', () => {
         });
 
         it('should return false if token is not expired', () => {
-            jwtDecode.mockReturnValue({ exp: (Date.now() / 1000) + 1000 });
+            jwtDecode.mockReturnValue({ exp: (Date.now() / 1000) + 10000 }); // 10,000 seconds in the future
             expect(AuthService.isTokenExpired('token')).toBe(false);
         });
 
