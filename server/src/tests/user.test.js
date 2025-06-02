@@ -103,7 +103,7 @@ describe('User API Tests', () => {
     });
 
     // AdminStatus should default to false when not provided
-    if('should default adminStatus to false when not provided', async () => {
+    it('should default adminStatus to false when not provided', async () => {
         const newUser = {
             email: 'testUser4@jest.test',
             password: 'testPassword123!',
@@ -207,7 +207,34 @@ describe('User API Tests', () => {
     });
 
     // Return a 200 status when successfully deleting a user
-
+    it('should return a 200 status when successfully deleting a user', async () => {
+        const newUser = {
+            email: 'deleteUser@jest.test',
+            password: 'testPassword123!',
+            username: 'deleteUser',
+            name: 'Delete User',
+            adminStatus: false
+        };
+        const createdUser = await request(app).post('/api/users').send(newUser);
+        const userId = createdUser.body.data._id;
+        const res = await request(app).delete(`/api/users/${userId}`);
+        expect(res.statusCode).toBe(200);
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toMatch(/deleted/i);
+    });
 
     // Return a 400 status when trying to delete a user with an invalid ID
+    it('should return a 400 status when trying to delete a user with an invalid ID', async () => {
+        const res = await request(app).delete('/api/users/invalidid123');
+        expect(res.statusCode).toBe(400);
+        expect(res.body.success).toBe(false);
+    });
+
+    // Return a 404 status when trying to delete a user that does not exist
+    it('should return a 404 status when trying to delete a user that does not exist', async () => {
+        const nonExistentUserId = new mongoose.Types.ObjectId();
+        const res = await request(app).delete(`/api/users/${nonExistentUserId}`);
+        expect(res.statusCode).toBe(404);
+        expect(res.body.success).toBe(false);
+    });
 })

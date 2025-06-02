@@ -15,8 +15,12 @@ import mongoose from 'mongoose';
 
 export const getAllComments = async (req, res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.userId)) {
+            return res.status(400).json({success: false, message: 'Invalid user ID'});
+        }
         const comments = await Comment.find({});
         console.log('Comments fetched successfully');
+        res.status(200).json({success: true, data: comments});
     } catch (error) {
         console.error('Error fetching comments: ', error);
         res.status(500).json({success: false, message: 'Error fetching comments', error: error.message});
