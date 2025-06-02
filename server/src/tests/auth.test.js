@@ -25,6 +25,10 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 delete window.location;
 window.location = { assign: jest.fn() };
 
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+
 describe('AuthService', () => {
     beforeEach(() => {
         jest.clearAllMocks();
