@@ -1,37 +1,34 @@
-import AuthService from '../utils/auth'; // Adjust the import path as necessary
+import AuthService from '../../../client/src/utils/auth.js'; // Adjust the import path as necessary
 import { jwtDecode } from 'jwt-decode';
+import { vi } from 'vitest';
 
 // auth.test.js
 
 
 // Mock jwt-decode
-jest.mock('jwt-decode', () => ({
-    jwtDecode: jest.fn(),
+vi.mock('jwt-decode', () => ({
+    jwtDecode: vi.fn(),
 }));
 
 // Mock localStorage
 const localStorageMock = (() => {
     let store = {};
     return {
-        getItem: jest.fn((key) => store[key] || null),
-        setItem: jest.fn((key, value) => { store[key] = value.toString(); }),
-        removeItem: jest.fn((key) => { delete store[key]; }),
-        clear: jest.fn(() => { store = {}; }),
+        getItem: vi.fn((key) => store[key] || null),
+        setItem: vi.fn((key, value) => { store[key] = value.toString(); }),
+        removeItem: vi.fn((key) => { delete store[key]; }),
+        clear: vi.fn(() => { store = {}; }),
     };
 })();
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 // Mock window.location.assign
 delete window.location;
-window.location = { assign: jest.fn() };
-
-afterAll(async () => {
-  await mongoose.connection.close();
-});
+window.location = { assign: vi.fn() };
 
 describe('AuthService', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
         localStorageMock.clear();
     });
 
@@ -54,7 +51,7 @@ describe('AuthService', () => {
     describe('loggedIn', () => {
         it('should return true if token exists and not expired', () => {
             localStorage.setItem('id_token', 'token');
-            jest.spyOn(AuthService, 'isTokenExpired').mockReturnValue(false);
+            vi.spyOn(AuthService, 'isTokenExpired').mockReturnValue(false);
             expect(AuthService.loggedIn()).toBe(true);
         });
 
@@ -64,7 +61,7 @@ describe('AuthService', () => {
 
         it('should return false if token is expired', () => {
             localStorage.setItem('id_token', 'token');
-            jest.spyOn(AuthService, 'isTokenExpired').mockReturnValue(true);
+            vi.spyOn(AuthService, 'isTokenExpired').mockReturnValue(true);
             expect(AuthService.loggedIn()).toBe(false);
         });
     });

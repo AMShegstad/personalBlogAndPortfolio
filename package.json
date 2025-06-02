@@ -11,15 +11,18 @@
     "jest-test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:vitest": "vitest",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@vitest/ui": "^3.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^10.1.4",
     "supertest": "^7.1.1",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.0"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

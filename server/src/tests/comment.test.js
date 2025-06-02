@@ -76,13 +76,16 @@ describe('Comment API Tests', () => {
     it('should return a 200 status when fetching all comments', async () => {
         const newComment = {
             content: 'This is a test comment.',
-            author: testUser._id, // Use the test user ID
-            associatedPost: testPost._id, // Use the test post ID
-        }
-        newComment.author = testUser._id;
+            author: testUser._id,
+            associatedPost: testPost._id,
+        };
+        await Comment.create(newComment);
         const res = await request(app).get('/api/comments');
         expect(res.statusCode).toBe(200);
         expect(res.body.success).toBe(true);
+        expect(Array.isArray(res.body.data)).toBe(true);
+        expect(res.body.data.length).toBe(1);
+        expect(res.body.data[0].content).toBe(newComment.content);
     });
 
     // Testing getAllCommentsForUser
@@ -104,13 +107,17 @@ describe('Comment API Tests', () => {
     it('should return a 200 status when fetching comments for a valid post ID', async () => {
         const newComment = {
             content: 'This is a test comment for the post.',
-            author: testUser._id, // Use the test user ID
-            associatedPost: testPost._id, // Use the test post ID
-        }
+            author: testUser._id,
+            associatedPost: testPost._id,
+        };
+        await Comment.create(newComment);
         const validPostId = testPost._id;
         const res = await request(app).get(`/api/comments/post/${validPostId}`)
         expect(res.statusCode).toBe(200);
         expect(res.body.success).toBe(true);
+        expect(Array.isArray(res.body.data)).toBe(true);
+        expect(res.body.data.length).toBe(1);
+        expect(res.body.data[0].content).toBe(newComment.content);
     })
 
     // Testing getCommentById
@@ -143,14 +150,12 @@ describe('Comment API Tests', () => {
     });
 
     // Testing createComment
-    it('should crate a comment successfully using the testPost ID', async () => {
+    it('should create a comment successfully using the testPost ID', async () => {
         const newComment = {
             content: 'This is a test comment.',
-            author: testUser._id, // Use the test user ID
-            associatedPost: testPost._id, // Use the test post ID
-        }
-        newComment.author = testUser._id;
-        newComment.associatedPost = testPost._id; // Use the test post ID
+            author: testUser._id,
+            associatedPost: testPost._id,
+        };
         const res = await request(app).post('/api/comments').send(newComment);
         expect(res.statusCode).toBe(201);
         expect(res.body.success).toBe(true);
