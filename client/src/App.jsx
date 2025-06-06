@@ -39,7 +39,7 @@ function App() {
         >
           <Header />
           <Navbar />
-          <Box as="main" flex="1" p={4} overflow="scroll">
+          <Box as="main" flex="1" p={4}>
             <Outlet/>
           </Box>
           <Footer />

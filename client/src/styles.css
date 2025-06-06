@@ -4,4 +4,5 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     width: 100vw;
+    background-color: linear-gradient(to right, #93a5cf, #e4efe9);
 }
