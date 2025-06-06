@@ -12,7 +12,8 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:vitest": "vitest",
     "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "start": "node server/src/server.js"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

@@ -1,5 +1,7 @@
-import { Box, HStack, VStack, Image } from "@chakra-ui/react";
+import { Box, HStack, VStack, Image, Spacer } from "@chakra-ui/react";
 import React from "react";
+import profpic from '/assets/images/profpic3.JPG'; // Adjust the path as necessar
+import cartoonMe from '/assets/images/_cartoonMeAndNox.png';
 
 const Header = () => {
   return (
@@ -13,16 +15,17 @@ const Header = () => {
       alignItems="center"
       justifyContent="space-between"
     >
-      <HStack>
-        <VStack align="start">
-          <Box fontWeight="bold" fontSize="xl">
-            Alexander Shegstad
+      <HStack align="center" spacing={4} justify="center" width="full">
+        <VStack align="center">
+          <Box fontWeight="bold" fontSize="2xl" height="100px" color="gray.900" px={2} rounded="md">
+            Alexander Shegstad 
+            <Box fontWeight="bold" color="green.700" fontSize="md">
+              Software Developer
+            </Box>
           </Box>
-          <Box fontSize="sm" color="gray.600">
-            Software Developer
-          </Box>
+          <Spacer/>
         </VStack>
-        <Image rounded="md" src="#" alt="Portrait" />
+        <Image rounded="md" height={36} src={cartoonMe} alt="Portrait" borderRadius="full" fit="cover" />
       </HStack>
     </Box>
   );
