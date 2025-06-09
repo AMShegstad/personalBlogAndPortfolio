@@ -1,16 +1,19 @@
 import React from 'react';
-import { Box, Text, HStack, Image } from '@chakra-ui/react';
+import { Box, Text, HStack, Image, useColorModeValue } from '@chakra-ui/react';
 import BlogPostList from '../components/BlogPostList';
 import nameAndLogo from '/assets/images/_nameAndLogo.png';
 
 const Blog = () => {
+  const bg = useColorModeValue("gray.100", "gray.800");
+  const text = useColorModeValue("gray.600", "white");
+
   return (
-    <Box as="main" flex="1" p={4} bg="gray.50">
+    <Box as="main" flex="1" p={4} bg={bg} color={text}>
       <HStack>
         <BlogPostList />
         <Box>
           <Box as="section" p={4} bg="white" borderRadius="md" boxShadow="md" width="100%">
-            <Text fontSize="4xl" fontWeight="bold">Selected Blog Post</Text>
+            <Text fontSize={{ base: 'md', md: 'lg', lg: 'lg'}} fontWeight="bold">Selected Blog Post</Text>
             <br />
             <Image src={nameAndLogo} alt="" height="300px" float="left" marginRight={5} borderRadius="lg"/>
             <h4>This is a featured blog post. It contains important information and updates.</h4>

@@ -10,6 +10,7 @@ import Portfolio from "./pages/Portfolio";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Error from "./pages/Error";
+import { PageTrackerProvider } from "./components/statistics/PageVisitTracker.jsx";
 
   const router = createBrowserRouter([
   {
@@ -29,7 +30,9 @@ import Error from "./pages/Error";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider>
-      <RouterProvider router={router} />
+      <PageTrackerProvider>
+        <RouterProvider router={router} />
+      </PageTrackerProvider>
     </Provider>
   </React.StrictMode>
 );

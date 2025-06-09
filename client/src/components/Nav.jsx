@@ -15,8 +15,8 @@ const Navbar = () => {
   //const { toggleColorMode } = useColorMode();
   let loggedIn = false;
 
-  const bg = useColorModeValue("gray.600", "gray.800");
-  const color = useColorModeValue("white", "gray.800");
+  const bg = useColorModeValue("gray.100", "gray.800");
+  const text = useColorModeValue("gray.600", "white");
 
   const logout = () => {
     // Logic to handle logout
@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <Box width="100%" bg={bg} px={3} py={3} shadow="md">
+    <Box width="100%" bg={bg} px={3} py={3} shadow="md" color={text} backgroundColor={bg}>
       <Flex align="center">
         {/* Left-aligned tabs */}
         <HStack spacing={6}>

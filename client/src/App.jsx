@@ -5,8 +5,6 @@ import Navbar from './components/Nav';
 import { Flex, Box, HStack } from '@chakra-ui/react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-// import HomeBlogCard from './components/HomeBlogCard';
-// import HomeProjectCard from './components/HomeProjectCard';
 import Landing from './pages/Landing';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Outlet } from 'react-router-dom';
