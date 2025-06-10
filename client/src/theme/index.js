@@ -2,6 +2,7 @@
 
 // src/theme/index.js
 import { extendTheme } from '@chakra-ui/react';
+import styles from './styles.js';
 
 const config = {
   initialColorMode: 'light',
@@ -40,7 +41,7 @@ const semanticTokens = {
   },
 };
 
-const theme = extendTheme({ config, colors, semanticTokens });
+const theme = extendTheme({ config, colors, semanticTokens, styles });
 
 export default theme;
 

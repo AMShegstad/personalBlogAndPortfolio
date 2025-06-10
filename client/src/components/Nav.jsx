@@ -5,6 +5,7 @@ import {
   HStack, 
   Text, 
   Spacer,
+  Center
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
 import { ColorModeButton } from "./ui/color-mode";
@@ -44,6 +45,7 @@ const Navbar = () => {
   return (
     <Box width="100%" bg={bg} px={3} py={3} shadow="md" color={text} backgroundColor={bg}>
       <Flex align="center">
+        <Center>
         {/* Left-aligned tabs */}
         <HStack spacing={6}>
           <Text as={Link} to="/" fontWeight="bold" cursor="pointer" px={3}>
@@ -62,6 +64,7 @@ const Navbar = () => {
             Contact Me
           </Text>
         </HStack>
+        </Center>
 
         {/* Pushes button to the right */}
         <Spacer />

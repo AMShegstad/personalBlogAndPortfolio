@@ -2,7 +2,7 @@
 import './styles.css'
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Nav';
-import { Flex, Box, HStack } from '@chakra-ui/react';
+import { Flex, Box, useColorModeValue } from '@chakra-ui/react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
@@ -13,6 +13,8 @@ const MotionFlex = motion(Flex);
 
 function App() {
   const [showLanding, setShowLanding] = useState(true);
+  const bg = useColorModeValue("gray.100", "gray.800");
+  const text = useColorModeValue("gray.600", "white");
 
   useEffect(() => {
     const timer = setTimeout(() => setShowLanding(false), 3000); // 3-second splash
@@ -29,7 +31,8 @@ function App() {
           direction="column"
           justifyContent="space-between"
           minH="100vh"
-          bg="gray.50"
+          bg={bg}
+          color={text}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

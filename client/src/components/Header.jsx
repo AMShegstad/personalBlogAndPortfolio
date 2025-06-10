@@ -1,13 +1,17 @@
-import { Box, HStack, VStack, Image, Spacer } from "@chakra-ui/react";
+import { Box, HStack, VStack, Image, Spacer, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import profpic from '/assets/images/profpic3.JPG'; // Adjust the path as necessar
 import cartoonMe from '/assets/images/_cartoonMeAndNox.png';
 
 const Header = () => {
+  const bg = useColorModeValue("gray.50", "gray.900");
+  const color = useColorModeValue("gray.800", "gray.100");
+
   return (
     <Box
       as="header"
-      bg="gray.100"
+      bg={bg}
+      color={color}
       px={4}
       py={3}
       shadow="md"
@@ -17,7 +21,7 @@ const Header = () => {
     >
       <HStack align="center" spacing={4} justify="center" width="full">
         <VStack align="center">
-          <Box fontWeight="bold" fontSize="2xl" height="100px" color="gray.900" px={2} rounded="md">
+          <Box fontWeight="bold" fontSize="2xl" height="100px" px={2} rounded="md">
             Alexander Shegstad 
             <Box fontWeight="bold" color="green.700" fontSize="md">
               Software Developer

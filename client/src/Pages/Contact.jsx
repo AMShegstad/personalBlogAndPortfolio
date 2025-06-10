@@ -1,4 +1,4 @@
-import { Flex, FormControl, FormLabel, Input, Textarea, Button, useColorModeValue } from '@chakra-ui/react'
+import { Flex, FormControl, FormLabel, Input, Textarea, Button, useColorModeValue, Center } from '@chakra-ui/react'
 import React from 'react'
 
 const Contact = () => {
@@ -10,25 +10,25 @@ const Contact = () => {
     <Flex direction="column" align="center" justify="start" height="100vh" bg={bg} color={text}>
       <h1>Drop me a line! I'd love to connect about potential work, tech, or to answer any questions you might have!</h1>
       <FormControl width={{base: 'sm', md: 'lg', xl: '2xl'}} mt={4}>
-        <FormLabel htmlFor="name">Name</FormLabel>
+        <Center><FormLabel htmlFor="name">Name</FormLabel></Center>
         <Input id="name" placeholder="How should I greet you?" />
         <br />
         <br />
-        <FormLabel htmlFor="organization">Organization</FormLabel>
+        <Center><FormLabel htmlFor="organization">Organization</FormLabel></Center>
         <Input id="organization" placeholder="If this is about potential employment, for which company? Not required."/>
         <br />
         <br />
-        <FormLabel htmlFor="email">Email</FormLabel>
+        <Center><FormLabel htmlFor="email">Email</FormLabel></Center>
         <Input id="email" type="email" placeholder="Your Email address, so I may respond." />
         <br />
         <br />        
-        <FormLabel htmlFor="message">Message</FormLabel>
+        <Center><FormLabel htmlFor="message">Message</FormLabel></Center>
         <Textarea id="message" placeholder="Please leave your message here! I will get backto you as soon as I can." />
         <br />
         <br />        
-        <Button mt={4} colorScheme="teal" type="submit">
+        <Center><Button mt={4} colorScheme="teal" type="submit">
           Send Message
-        </Button>
+        </Button></Center>
       </FormControl>
         <br />
         <hr width="100%"/>

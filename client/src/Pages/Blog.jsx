@@ -12,7 +12,7 @@ const Blog = () => {
       <HStack>
         <BlogPostList />
         <Box>
-          <Box as="section" p={4} bg="white" borderRadius="md" boxShadow="md" width="100%">
+          <Box as="section" p={4} borderRadius="md" boxShadow="md" width="100%" bg={bg} color={text}>
             <Text fontSize={{ base: 'md', md: 'lg', lg: 'lg'}} fontWeight="bold">Selected Blog Post</Text>
             <br />
             <Image src={nameAndLogo} alt="" height="300px" float="left" marginRight={5} borderRadius="lg"/>
