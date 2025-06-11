@@ -1,83 +1,119 @@
-import React from "react";
+import React from 'react';
 import { 
   Box, 
   Flex, 
   HStack, 
-  Text, 
-  Spacer,
-  Center
-} from "@chakra-ui/react";
-import { useColorModeValue } from "@chakra-ui/react";
-import { ColorModeButton } from "./ui/color-mode";
-import { Link, useLocation } from "react-router-dom";
+  Link as ChakraLink, 
+  useColorMode, 
+  IconButton,
+  useColorModeValue,
+  Container
+} from '@chakra-ui/react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { motion } from 'framer-motion';
 
-const Navbar = () => {
-  //const currentPage = useLocation().pathname;
-  //const { toggleColorMode } = useColorMode();
-  let loggedIn = false;
+const MotionBox = motion(Box);
+const MotionLink = motion(ChakraLink);
 
-  const bg = useColorModeValue("gray.100", "gray.800");
-  const text = useColorModeValue("gray.600", "white");
+const navItems = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+  { name: 'Portfolio', path: '/portfolio' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'Contact', path: '/contact' },
+];
 
-  const logout = () => {
-    // Logic to handle logout
-    loggedIn = false;
-    console.log("User logged out");
-  }
-
-  const renderButtons = () => {
-    if (loggedIn) {
-      return (
-        <HStack spacing={4}>
-          <Text fontWeight="bold" cursor="pointer" px={3} onClick={logout}>
-            Logout
-          </Text>
-        </HStack>
-      );
-    }
-    return (
-      <HStack spacing={4}>
-        {/* Add login/register buttons here if needed */}
-      </HStack>
-    );
-  };
+function Nav() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const location = useLocation();
+  
+  const bg = useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(26, 32, 44, 0.8)');
+  const borderColor = useColorModeValue('gray.200', 'gray.700');
 
   return (
-    <Box width="100%" bg={bg} px={3} py={3} shadow="md" color={text} backgroundColor={bg}>
-      <Flex align="center">
-        <Center>
-        {/* Left-aligned tabs */}
-        <HStack spacing={6}>
-          <Text as={Link} to="/" fontWeight="bold" cursor="pointer" px={3}>
-            Home
-          </Text>
-          <Text as={Link} to="/About" fontWeight="bold" cursor="pointer" px={3}>
-            About Me
-          </Text>
-          <Text as={Link} to="/blog" fontWeight="bold" cursor="pointer" px={3}>
-            Blog
-          </Text>
-          <Text as={Link} to="/portfolio" fontWeight="bold" cursor="pointer" px={3}>
-            Projects
-          </Text>
-          <Text as={Link} to="/contact" fontWeight="bold" cursor="pointer" px={3}>
-            Contact Me
-          </Text>
-        </HStack>
-        </Center>
+    <MotionBox
+      as="nav"
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      zIndex={1000}
+      bg={bg}
+      backdropFilter="blur(10px)"
+      borderBottom="1px"
+      borderColor={borderColor}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      <Container maxW="container.xl">
+        <Flex h={16} alignItems="center" justifyContent="space-between">
+          <MotionLink
+            as={RouterLink}
+            to="/"
+            fontSize="xl"
+            fontWeight="bold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {/* <Text color={location.pathname === '/' ? 'blue.500' : 'inherit'}>
+              "<A"  
+            </Text> */}
+          </MotionLink>
 
-        {/* Pushes button to the right */}
-        <Spacer />
+          <HStack spacing={8}>
+            {navItems.map((item) => (
+              <MotionLink
+                key={item.path}
+                as={RouterLink}
+                to={item.path}
+                px={3}
+                py={2}
+                rounded="md"
+                position="relative"
+                className="navbar-link"
+                color={location.pathname === item.path ? 'blue.500' : 'inherit'}
+                fontWeight={location.pathname === item.path ? 'semibold' : 'normal'}
+                whileHover={{ 
+                  y: -2,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item.name}
+                {location.pathname === item.path && (
+                  <MotionBox
+                    position="absolute"
+                    bottom="-1px"
+                    left={0}
+                    right={0}
+                    h="2px"
+                    bg="blue.500"
+                    borderRadius="full"
+                    layoutId="underline"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </MotionLink>
+            ))}
 
-        {/* {renderButtons()} */}
-
-        {/* Right-aligned button */}
-        <HStack spacing={4}>
-          <ColorModeButton />
-        </HStack>
-      </Flex>
-    </Box>
+            <IconButton
+              aria-label="Toggle color mode"
+              icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              onClick={toggleColorMode}
+              variant="ghost"
+              as={motion.button}
+              whileHover={{ scale: 1.1, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+            />
+          </HStack>
+        </Flex>
+      </Container>
+    </MotionBox>
   );
 }
 
-export default Navbar;
+export default Nav;
