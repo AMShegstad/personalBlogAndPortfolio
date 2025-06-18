@@ -15,7 +15,7 @@ const projectSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        maxlength: 500 // Limit the project description length to 500 characters
+        maxlength: 10000
     },
     stack: {
         type: [String],

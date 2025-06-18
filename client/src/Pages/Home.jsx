@@ -1,7 +1,8 @@
-import { Flex, Box, HStack, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Box, Image, HStack, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
-import HomeBlogCard from '../components/HomeBlogCard';
-import HomeProjectCard from '../components/HomeProjectCard';
+// import HomeBlogCard from '../components/HomeBlogCard';
+// import HomeProjectCard from '../components/HomeProjectCard';
+import cartoonMe from '/assets/images/_cartoonMeAndNox.png';
 
 const Home = () => {
   const bg = useColorModeValue("gray.100", "gray.800");
@@ -12,10 +13,11 @@ const Home = () => {
       {/* Header and Navbar components can be included here if needed */}
       <Box as="main" flex="1" p={4}>
         {/* Main content goes here */}
-        <HStack spacing={4} mt={4}>
+        {/* <HStack spacing={4} mt={4}>
           <HomeBlogCard />
           <HomeProjectCard />
-        </HStack>
+        </HStack> */}
+        <Image rounded="md" width="90%" height="auto" src={cartoonMe} alt="Portrait" borderRadius="sm" fit="cover"/>
       </Box>
     </Flex>
   );

@@ -41,6 +41,6 @@ commentSchema.pre('findOneAndUpdate', function (next) {
     next();
 });
 
-const Comment = model('comment', commentSchema);
+const Comment = model('Comment', commentSchema);
 
 export default Comment;

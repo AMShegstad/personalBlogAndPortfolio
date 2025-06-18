@@ -83,11 +83,12 @@ function App() {
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }} 
         >
+          <Header />
           <Nav />
           {/* Add padding-top to account for fixed navbar */}
-          <Box pt="64px"> {/* Adjust this value based on your nav height */}
-            <Header />
-          </Box>
+          {/* <Box pt="64px"> Adjust this value based on your nav height */}
+            {/* <Header />
+          </Box> */}
           <Box as="main" flex="1" p={4}>
             <Container maxW="container.xl" pt={4}> {/* Reduced pt since Header now has space */}
               <AnimatePresence mode="wait" initial={false}>

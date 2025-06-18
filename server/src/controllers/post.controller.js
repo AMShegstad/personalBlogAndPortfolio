@@ -33,6 +33,8 @@ export const getPostById = async (req, res) => {
         if (!selectedPost) {
             return res.status(404).json({success: false, message: 'Post not found'});
         }
+        console.log('Post fetched successfully');
+        res.status(200).json({success: true, data: selectedPost});
     } catch (error) {
         console.error('Error fetching post by ID: ', error);
     }

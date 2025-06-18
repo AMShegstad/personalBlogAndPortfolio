@@ -29,7 +29,7 @@ export const getAllCommentsForUser = async (req, res) => {
         return res.status(400).json({ success: false, message: 'Invalid user ID' });
     }
     try {
-        const comments = await Comment.findAll({ author: userId });
+        const comments = await Comment.find({ author: userId });
         // Always return 200 and an array, even if empty
         return res.status(200).json({ success: true, data: comments });
     } catch (error) {

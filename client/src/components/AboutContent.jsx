@@ -27,6 +27,7 @@ const AboutContent = () => {
       <Text fontSize="18px" textIndent={50}>
         As a leader of one of the store's largest teams, I would describe my leadership style as educational and empathetic. I truly believe that there is nothing asked of us that we cannot handle with proper training and education. I work hard to make sure that my team is backed and supported by leadership that understands that they are one of the most important assets we have. I am not only a leader, but their first line of support in terms of supplies, morale, safety, work culture, and more.
       </Text>
+      <br />
     </Box>
   )
 }

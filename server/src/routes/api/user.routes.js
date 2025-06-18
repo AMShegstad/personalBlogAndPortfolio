@@ -9,10 +9,13 @@ import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from '..
 const router = express.Router();
 
 // Get all users
+// Successfully tested with Postman on June 16th, 2025
 router.get('/', getAllUsers);
 // Get a single user by ID
+// Successfully tested with Postman on June 16th, 2025
 router.get('/:id', getUserById);
 // Create a new user
+// Successfully tested with Postman on June 16th, 2025
 router.post(
   '/',
   [

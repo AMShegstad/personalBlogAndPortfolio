@@ -26,7 +26,7 @@ router.get('/:id', getCommentById);
 router.post('/', createComment);
 // Update comment by ID
 router.put('/:id', updateComment);
-// Update comment by ID
+// Update comment by ID 
 router.delete('/:id', deleteComment);
 
 export default router;

@@ -34,6 +34,7 @@ export const getProjectById = async (req, res) => {
             return res.status(404).json({success: false, message: 'Project not found'});
         }
         console.log('Project fetched successfully');
+        res.status(200).json({success: true, data: project});
     } catch (error) {
         console.error('Error fetching project by ID: ', error);
         res.status(500).json({success: false, message: 'Error fetching project by ID', error: error.message});
@@ -69,7 +70,7 @@ export const updateProject = async (req, res) => {
     const projectId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(projectId)) {
         return res.status(400).json({success: false, message: 'Invalid project ID'});
-    }
+    } 
     const { name, description, stack, imageURL, githubLink, liveLink } = req.body;
     try {
         const updatedProject = await Project.findByIdAndUpdate(

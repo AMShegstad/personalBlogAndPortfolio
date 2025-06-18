@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, HStack, Image, useColorModeValue } from '@chakra-ui/react';
-import BlogPostList from '../components/BlogPostList';
+import BlogPostList from '../components/BlogNav';
 import nameAndLogo from '/assets/images/_nameAndLogo.png';
 import MainBlogPostCard from '../components/MainBlogPostCard';
 

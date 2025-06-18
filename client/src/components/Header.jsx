@@ -13,7 +13,8 @@ const Header = () => {
       bg={bg}
       color={color}
       px={4}
-      py={3}
+      py={2}
+      pt={"70px"}
       shadow="md"
       display="flex"
       alignItems="center"
