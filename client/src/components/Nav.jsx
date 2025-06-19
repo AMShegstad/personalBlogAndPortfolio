@@ -49,7 +49,7 @@ function Nav() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <Container maxW="container.xl">
-        <Flex h={16} alignItems="center" justifyContent="space-between">
+        <Flex h={16} justifyContent="" mx="auto">
           <MotionLink
             as={RouterLink}
             to="/"

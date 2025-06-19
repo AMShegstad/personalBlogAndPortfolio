@@ -18,7 +18,7 @@ const Portfolio = () => {
   return (
     <>
     <Box bg={bg} color={text} p={8}>
-      <HStack spacing={6} mb={8} as="nav">
+      <HStack spacing={6} mb={8} as="nav" justifyContent="center">
         {projects.map((proj) => (
           <Link
             as={NavLink}

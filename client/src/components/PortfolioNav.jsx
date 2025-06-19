@@ -25,7 +25,7 @@ const navItems = [
   { name: 'Contact', path: '/contact' },
 ];
 
-function Nav() {
+function PortfolioNav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
   

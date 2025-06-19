@@ -1,7 +1,10 @@
 import { Box, HStack, VStack, Image, Spacer, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import profpic from '/assets/images/profpic3.JPG'; // Adjust the path as necessar
+//port profpic from '/assets/images/profpic3.JPG'; // Adjust the path as necessar
 import cartoonMe from '/assets/images/_cartoonMeAndNox.png';
+// Use the public folder path directly in the <Image src> prop instead of importing
+import codingCert from '/assets/images/codingCert.png';
+
 
 const Header = () => {
   const bg = useColorModeValue("gray.50", "gray.900");
@@ -31,6 +34,7 @@ const Header = () => {
           <Spacer/>
         </VStack>
         <Image rounded="md" height={36} src={cartoonMe} alt="Portrait" borderRadius="full" fit="cover" />
+        <Image rounded="md" height={36} src={codingCert} alt="Bootcamp Certificate" borderRadius="full" fit="cover" />
       </HStack>
     </Box>
   );
