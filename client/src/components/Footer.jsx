@@ -1,11 +1,15 @@
 import React from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, useColorModeValue } from '@chakra-ui/react'
 
 const Footer = () => {
+  const bg = useColorModeValue("gray.100", "gray.800");
+  const text = useColorModeValue("gray.600", "white"); 
+
   return (
     <Box
       as="footer"
-      bg="gray.100"
+      bg={bg}
+      color={text}
       px={4}
       py={3}
       shadow="md"

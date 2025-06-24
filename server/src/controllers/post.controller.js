@@ -11,6 +11,7 @@ deletePost: Removes a post from the database by its ID.
 import Post from '../models/post.model.js';
 import { validationResult } from 'express-validator';
 import mongoose from 'mongoose';
+import sanitizeHtml from 'sanitize-html';
 
 export const getAllPosts = async (req, res) => {
     try { 
@@ -42,31 +43,40 @@ export const getPostById = async (req, res) => {
 
 export const createPost = async (req, res) => {
     const error = validationResult(req);
-    if(!error.isEmpty()) {
-        return res.status(400).json({success: false, errors: error.array()});
+    if (!error.isEmpty()) {
+        return res.status(400).json({ success: false, errors: error.array() });
     }
 
     const { title, subtitle, content, author, comments, likes, views, createdAt, updatedAt } = req.body;
+
+    // Sanitize the HTML content before saving
+    const sanitizedContent = sanitizeHtml(content, {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'h1', 'h2', 'p' ]),
+        allowedAttributes: {
+            ...sanitizeHtml.defaults.allowedAttributes,
+            img: [ 'src', 'alt', 'title', 'width', 'height' ]
+        }
+    });
 
     try {
         const newPost = new Post({
             title,
             subtitle,
-            content,
+            content: sanitizedContent,
             author,
             comments,
             likes,
             views,
             createdAt,
             updatedAt
-        })
+        });
 
         const savedPost = await newPost.save();
         console.log('Post created successfully');
         res.status(201).json({ success: true, data: savedPost });
     } catch (error) {
         console.error('Error creating post: ', error);
-        res.status(500).json({success: false, message: 'Error creating post', error: error.message});
+        res.status(500).json({ success: false, message: 'Error creating post', error: error.message });
     }
 }
 

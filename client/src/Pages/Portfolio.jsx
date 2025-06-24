@@ -10,32 +10,32 @@ const projects = [
   { name: "VirtualPEX", path: "VirtualPEX" },
 ];
 
-const Portfolio = () => {
+const SIDEBAR_WIDTH = "250px"; // or whatever width your sidebar uses
 
+const Portfolio = () => {
   const bg = useColorModeValue("gray.50", "gray.900");
   const text = useColorModeValue("gray.800", "gray.100");
   
   return (
-    <>
-    <Box bg={bg} color={text} p={8}>
-      <HStack spacing={6} mb={8} as="nav" justifyContent="center">
-        {projects.map((proj) => (
-          <Link
-            as={NavLink}
-            key={proj.path}
-            to={proj.path}
-            _activeLink={{ fontWeight: "bold", color: "blue.400" }}
-          >
-            {proj.name}
-          </Link>
-        ))}
-      </HStack>
-      <Box>
-        <Outlet />
+    <Box display="flex">
+      <Box ml={SIDEBAR_WIDTH} flex="1" bg={bg} color={text} p={8}>
+        <HStack spacing={6} mb={8} as="nav" justifyContent="center">
+          {projects.map((proj) => (
+            <Link
+              as={NavLink}
+              key={proj.path}
+              to={proj.path}
+              _activeLink={{ fontWeight: "bold", color: "blue.400" }}
+            >
+              {proj.name}
+            </Link>
+          ))}
+        </HStack>
+        <Box>
+          <Outlet />
+        </Box>
       </Box>
-    </Box> 
-    <ProjectNav />
-    </>
+    </Box>
   )
 }
 
