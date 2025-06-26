@@ -1,6 +1,7 @@
-import React from 'react'
-import { Box, useColorModeValue } from '@chakra-ui/react'
-import ProjectNav from '../components/PortfolioNav';
+import React, { useState, useEffect } from 'react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
+import PortfolioNav from '../components/PortfolioNav';
+import ProjectCardMain from '../components/ProjectCardMain';
 import { NavLink, Outlet } from "react-router-dom";
 import { HStack, Link } from "@chakra-ui/react";
 
@@ -15,25 +16,33 @@ const SIDEBAR_WIDTH = "250px"; // or whatever width your sidebar uses
 const Portfolio = () => {
   const bg = useColorModeValue("gray.50", "gray.900");
   const text = useColorModeValue("gray.800", "gray.100");
+
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        setProjects(data.data || []);
+        setLoading(false);
+        if (data.data && data.data.length > 0) setSelectedProject(data.data[0]);
+      });
+  }, []);
+
+  const handleSelectProject = (project) => setSelectedProject(project);
   
   return (
-    <Box display="flex">
-      <Box ml={SIDEBAR_WIDTH} flex="1" bg={bg} color={text} p={8}>
-        <HStack spacing={6} mb={8} as="nav" justifyContent="center">
-          {projects.map((proj) => (
-            <Link
-              as={NavLink}
-              key={proj.path}
-              to={proj.path}
-              _activeLink={{ fontWeight: "bold", color: "blue.400" }}
-            >
-              {proj.name}
-            </Link>
-          ))}
-        </HStack>
-        <Box>
-          <Outlet />
-        </Box>
+    <Box flex="1" p={4} px={10} bg={bg} color={text} display="flex">
+      <PortfolioNav
+        projects={projects}
+        loading={loading}
+        onSelectProject={handleSelectProject}
+        selectedProjectId={selectedProject?._id}
+      />
+      <Box transition="margin-left 0.3s" flex="1" display="flex" flexDirection="column">
+        <ProjectCardMain project={selectedProject} />
       </Box>
     </Box>
   )

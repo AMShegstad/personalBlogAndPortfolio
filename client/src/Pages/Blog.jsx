@@ -26,14 +26,14 @@ const Blog = () => {
   const handleSelectPost = (post) => setSelectedPost(post);
 
   return (
-    <Box as="main" flex="1" p={4} bg={bg} color={text}>
+    <Box flex="1" p={4} px={10} bg={bg} color={text} display="flex">
       <BlogNav
         posts={posts}
         loading={loading}
         onSelectPost={handleSelectPost}
         selectedPostId={selectedPost?._id}
       />
-      <Box ml={BLOG_NAV_WIDTH} transition="margin-left 0.3s">
+      <Box transition="margin-left 0.3s" flex="1" display="flex" flexDirection="column">
         <MainBlogPostCard post={selectedPost} />
       </Box>
     </Box>

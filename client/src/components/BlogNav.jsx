@@ -1,4 +1,4 @@
-import { Box, Spinner, List, ListItem, Link, useColorModeValue } from "@chakra-ui/react";
+import { Box, Spinner, List, ListItem, Link, useColorModeValue, HStack } from "@chakra-ui/react";
 import React from "react";
 
 const HEADER_HEIGHT = 80; // Adjust this value to match your Header's height in px
@@ -8,15 +8,14 @@ const BlogNav = ({ posts, loading, onSelectPost, selectedPostId }) => {
   const text = useColorModeValue("gray.600", "white"); 
 
   return (
-    <Box
+    <HStack
       as="section"
       display="flex"
       flexDirection="column"
       minWidth={"25%"}
       maxWidth={"300px"}
-      position="fixed"
       top={`250px`}
-      left={0}
+      left={'12'}
       height={`calc(100vh - ${HEADER_HEIGHT}px)`}
       overflowY="auto"
       zIndex={10}
@@ -50,7 +49,7 @@ const BlogNav = ({ posts, loading, onSelectPost, selectedPostId }) => {
           </List>
         )}
       </Box>
-    </Box>
+    </HStack>
   );
 };
 
