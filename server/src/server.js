@@ -27,8 +27,14 @@ const __dirname = path.resolve(); // Get the current directory
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 // Catch-all route to serve the React app for any other requests
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+// });
+
+const clientBuildPath = path.join(process.cwd(), 'client', 'dist');
+app.use(express.static(clientBuildPath));
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
 // Connect to the database and start the server
