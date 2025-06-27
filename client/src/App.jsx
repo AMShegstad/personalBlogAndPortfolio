@@ -8,13 +8,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Nav from './components/Nav';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Landing from './pages/Landing';
-import Home from './pages/Home';
-import About from './pages/About';
-import Portfolio from './pages/Portfolio';
-import Blog from './pages/Blog';
+import Landing from './Pages/Landing';
+import Home from './Pages/Home';
+import About from './Pages/About';
+import Portfolio from './Pages/Portfolio';
+import Blog from './Pages/Blog';
 //import BlogPost from './pages/BlogPost';
-import Contact from './pages/Contact';
+import Contact from './Pages/Contact';
 
 const MotionFlex = motion(Flex);
 
