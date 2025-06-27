@@ -4,12 +4,12 @@ import App from "./App";
 import { Provider } from "./components/ui/provider";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //import theme from './theme/index.js';
-import Home from "./pages/Home";
-import Blog from "./pages/Blog";
-import Portfolio from "./pages/Portfolio";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Error from "./pages/Error";
+import Home from "./Pages/Home";
+import Blog from "./Pages/Blog";
+import Portfolio from "./Pages/Portfolio";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
+import Error from "./Pages/Error";
 import { PageTrackerProvider } from "./components/statistics/PageVisitTracker.jsx";
 
   const router = createBrowserRouter([
