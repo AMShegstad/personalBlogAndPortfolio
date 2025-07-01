@@ -14,8 +14,8 @@ const projects = [
 const SIDEBAR_WIDTH = "250px"; // or whatever width your sidebar uses
 
 const Portfolio = () => {
-  const bg = useColorModeValue("gray.50", "gray.900");
-  const text = useColorModeValue("gray.800", "gray.100");
+  const bg = useColorModeValue("gray.100", "gray.800");
+  const text = useColorModeValue("gray.600", "white"); 
 
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);

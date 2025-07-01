@@ -26,8 +26,9 @@ const ProjectCardMain = ({ project }) => {
     >
       <Box 
         as="section" 
-        p={4} 
-        bg="white" 
+        p={4}
+        bg={bg}
+        color={text}
         borderRadius="md" 
         boxShadow="md"
         width="100%"
