@@ -7,6 +7,7 @@ import apiRoutes from './routes/api/index.js';
 import path from 'path';
 
 dotenv.config();
+//dotenv.config({ path: path.resolve('src/.env') });
 
 // Initialize the Express application
 const app = express();
