@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue, Flex } from '@chakra-ui/react';
 import BlogNav from '../components/BlogNav';
 import MainBlogPostCard from '../components/MainBlogPostCard';
-
-const BLOG_NAV_WIDTH = "25%"; // or use the same minWidth as BlogNav, e.g. "300px"
 
 const Blog = () => {
   const bg = useColorModeValue("gray.100", "gray.800");
@@ -26,17 +24,40 @@ const Blog = () => {
   const handleSelectPost = (post) => setSelectedPost(post);
 
   return (
-    <Box flex="1" p={4} px={10} bg={bg} color={text} display="flex">
-      <BlogNav
-        posts={posts}
-        loading={loading}
-        onSelectPost={handleSelectPost}
-        selectedPostId={selectedPost?._id}
-      />
-      <Box transition="margin-left 0.3s" flex="1" display="flex" flexDirection="column">
+    <Flex
+      flex="1"
+      p={4}
+      px={10}
+      bg={bg}
+      color={text}
+      display="flex"
+      flexDirection={{ base: "column", md: "row" }} // column on mobile/tablet, row on desktop
+      width="100%"
+      minHeight="100vh"
+    >
+      <Box
+        width={{ base: "100%", md: "25%", lg: "300px" }}
+        mb={{ base: 4, md: 0 }}
+        mr={{ base: 0, md: 4 }}
+        zIndex={20}
+      >
+        <BlogNav
+          posts={posts}
+          loading={loading}
+          onSelectPost={handleSelectPost}
+          selectedPostId={selectedPost?._id}
+        />
+      </Box>
+      <Box
+        flex="1"
+        display="flex"
+        flexDirection="column"
+        transition="margin-left 0.3s"
+        width="100%"
+      >
         <MainBlogPostCard post={selectedPost} />
       </Box>
-    </Box>
+    </Flex>
   );
 };
 

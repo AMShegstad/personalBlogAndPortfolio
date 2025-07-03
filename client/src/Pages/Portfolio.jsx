@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue, Flex } from '@chakra-ui/react';
 import PortfolioNav from '../components/PortfolioNav';
 import ProjectCardMain from '../components/ProjectCardMain';
-import { NavLink, Outlet } from "react-router-dom";
-import { HStack, Link } from "@chakra-ui/react";
-
-const projects = [
-  { name: "StatTrick ", path: "Stattrick" },
-  { name: "MoffatBay", path: "MoffatBay" },
-  { name: "VirtualPEX", path: "VirtualPEX" },
-];
-
-const SIDEBAR_WIDTH = "250px"; // or whatever width your sidebar uses
 
 const Portfolio = () => {
   const bg = useColorModeValue("gray.100", "gray.800");
@@ -34,17 +24,51 @@ const Portfolio = () => {
   const handleSelectProject = (project) => setSelectedProject(project);
   
   return (
-    <Box flex="1" p={4} px={10} bg={bg} color={text} display="flex">
-      <PortfolioNav
-        projects={projects}
-        loading={loading}
-        onSelectProject={handleSelectProject}
-        selectedProjectId={selectedProject?._id}
-      />
-      <Box transition="margin-left 0.3s" flex="1" display="flex" flexDirection="column">
+    // <Box flex="1" p={4} px={10} bg={bg} color={text} display="flex">
+    //   <PortfolioNav
+    //     projects={projects}
+    //     loading={loading}
+    //     onSelectProject={handleSelectProject}
+    //     selectedProjectId={selectedProject?._id}
+    //   />
+    //   <Box transition="margin-left 0.3s" flex="1" display="flex" flexDirection="column">
+    //     <ProjectCardMain project={selectedProject} />
+    //   </Box>
+    // </Box>
+    <Flex
+      flex="1"
+      p={4}
+      px={10}
+      bg={bg}
+      color={text}
+      display="flex"
+      flexDirection={{base: "column", md: "row"}} // column on mobile/tablet, row on desktop
+      width="100%"
+      minHeight="100vh"
+    >
+      <Box
+        width={{ base: "100%", md: "25%", lg: "300px" }}
+        mb={{ base: 4, md: 0 }}
+        mr={{ base: 0, md: 4 }}
+        zIndex={20}
+      >
+        <PortfolioNav
+          projects={projects}
+          loading={loading}
+          onSelectProject={handleSelectProject}
+          selectedProjectId={selectedProject?._id}
+        />
+      </Box>
+      <Box
+        flex="1"
+        display="flex"
+        flexDirection="column"
+        transition="margin-left 0.3s"
+        width="100%"
+        >
         <ProjectCardMain project={selectedProject} />
       </Box>
-    </Box>
+    </Flex>
   )
 }
 
