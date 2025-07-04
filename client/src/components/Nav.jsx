@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
-  Box, 
+  Box,
+  Button, 
   Flex, 
   HStack, 
   Link as ChakraLink, 
@@ -8,11 +9,22 @@ import {
   IconButton,
   useColorModeValue,
   Container,
-  Spacer
+  Spacer,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  VStack,
 } from '@chakra-ui/react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { motion } from 'framer-motion';
+import { useAuth } from '../utils/AuthContext'; // Assuming you have an AuthContext for login state management
+import { IoMdLogIn, IoMdLogOut } from "react-icons/io";
+
 
 const MotionBox = motion(Box);
 const MotionLink = motion(ChakraLink);
@@ -28,6 +40,10 @@ const navItems = [
 function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // Handling login functionality
+  const { isLoggedIn, login, logout } = useAuth(); 
   
   const bg = useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(26, 32, 44, 0.8)');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
@@ -110,9 +126,43 @@ function Nav() {
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
             />
+            <Button onClick={isLoggedIn ? logout : login}>
+              {isLoggedIn ? <IoMdLogOut /> : <IoMdLogIn />}
+            </Button>
           </HStack>
         </Flex>
       </Container>
+
+      {/* Mobile Navigation - Drawer */}
+      <Drawer placement="right" onClose={onClose} isOpen={isOpen} size="xs">
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Menu</DrawerHeader>
+          <DrawerBody>
+            <VStack align="start" spacing={4}>
+              {navItems.map((item) => (
+                <ChakraLink
+                  key={item.path}
+                  as={RouterLink}
+                  to={item.path}
+                  onClick={onClose}
+                  width="100%"
+                  py={2}
+                  px={4}
+                  borderRadius="md"
+                  _hover={{ bg: 'blue.500', color: 'white' }}
+                  display="block"
+                  fontWeight={location.pathname === item.path ? 'semibold' : 'normal'}
+                  color={location.pathname === item.path ? 'blue.500' : 'inherit'}
+                >
+                  {item.name}
+                </ChakraLink>
+              ))}
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </MotionBox>
   );
 }

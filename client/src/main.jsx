@@ -11,7 +11,7 @@ import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Error from "./Pages/Error";
 import { PageTrackerProvider } from "./components/statistics/PageVisitTracker.jsx";
-import Auth from "./utils/auth";
+import { AuthProvider } from "./utils/AuthContext.jsx"; // Assuming you have an AuthContext for login state management
 
 const router = createBrowserRouter([
   {
