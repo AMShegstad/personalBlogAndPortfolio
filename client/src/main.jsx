@@ -11,18 +11,19 @@ import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Error from "./Pages/Error";
 import { PageTrackerProvider } from "./components/statistics/PageVisitTracker.jsx";
+import Auth from "./utils/auth";
 
-  const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'blog', element: <Blog /> },
-      { path: 'portfolio', element: <Portfolio /> },
-      { path: 'about', element: <About /> },
-      { path: 'contact', element: <Contact /> },
+      { path: "blog", element: <Blog /> },
+      { path: "portfolio", element: <Portfolio /> },
+      { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> },
     ],
   },
 ]);
@@ -30,9 +31,11 @@ import { PageTrackerProvider } from "./components/statistics/PageVisitTracker.js
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider>
-      <PageTrackerProvider>
-        <RouterProvider router={router} />
-      </PageTrackerProvider>
+      <AuthProvider>
+        <PageTrackerProvider>
+          <RouterProvider router={router} />
+        </PageTrackerProvider>
+      </AuthProvider>
     </Provider>
   </React.StrictMode>
 );
