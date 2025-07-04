@@ -76,7 +76,7 @@ function Nav() {
           >
           </MotionLink>
 
-          <HStack spacing={8} justify={"center"}>
+          <HStack spacing={8} justify={"center"} display={{ base: "none", md: "flex" }}>
             {navItems.map((item) => (
               <MotionLink
               justifyContent="center"
@@ -130,6 +130,13 @@ function Nav() {
               {isLoggedIn ? <IoMdLogOut /> : <IoMdLogIn />}
             </Button>
           </HStack>
+          <IconButton
+            aria-label="Open menu"
+            icon={<HamburgerIcon />}
+            onClick={onOpen}
+            variant="ghost"
+            display={{ base: "flex", md: "none" }}
+          />
         </Flex>
       </Container>
 
